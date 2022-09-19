@@ -6,6 +6,7 @@ let workExpSchema = new Schema(
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     position: { type: String },
     companyName: { type: String },
+    location: { type: String },
     joiningDate: { type: Date },
     leavingDate: { type: Date },
     ctc: { type: String },

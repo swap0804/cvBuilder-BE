@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const Responder = require('../service/responder');
 const { User, validate } = require('../models/user');
 const BasicDetails = require('../models/basicDetails');
+const WorkExperience = require('../models/workExperience');
+const projects = require('../models/projects');
 
 module.exports = {
   async getUsers(req, res) {
@@ -46,8 +48,13 @@ module.exports = {
   async getUserDetails(req, res) {
     try {
       let data = {};
-      let basicDetails = await BasicDetails.findOne({ userId: req.user._id });
+      const userId = req.user._id;
+      const basicDetails = await BasicDetails.findOne({ userId });
+      const experience = await WorkExperience.find({ userId });
+      const project = await projects.find({ userId });
       data.basicDetails = basicDetails;
+      data.experience = experience;
+      data.project = project;
       return Responder.respondWithSuccess(
         req,
         res,

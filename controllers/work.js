@@ -8,10 +8,10 @@ module.exports = {
     try {
       let body = req.body;
       body.userId = req.user._id;
-      if (body.experienceId) {
+      if (body._id) {
         const experience = await Experience.findOneAndUpdate(
           {
-            _id: body.experienceId,
+            _id: body._id,
           },
           body
         );
@@ -37,19 +37,22 @@ module.exports = {
           'New experience added'
         );
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log('error', e);
+    }
   },
 
   async updateProjects(req, res) {
     try {
       let body = req.body;
       body.userId = req.user._id;
-      if (body.projectId) {
+      if (body._id) {
         const project = await Project.findOneAndUpdate(
           {
-            _id: body.projectId,
+            _id: body._id,
           },
-          body
+          body,
+          { new: true }
         );
         if (project)
           return Responder.respondWithSuccess(
@@ -69,7 +72,9 @@ module.exports = {
           'New project added'
         );
       }
-    } catch (e) {}
+    } catch (e) {
+      console.error(e);
+    }
   },
 
   async updateSkills(req, res) {
