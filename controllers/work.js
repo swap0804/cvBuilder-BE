@@ -2,6 +2,7 @@ const Responder = require('../service/responder');
 const Experience = require('../models/workExperience');
 const Project = require('../models/projects');
 const Skills = require('../models/skills');
+const Links = require('../models/links');
 
 module.exports = {
   async updateExperience(req, res) {
@@ -79,9 +80,13 @@ module.exports = {
 
   async updateSkills(req, res) {
     try {
+      let body = {
+        userId: req.user._id,
+        skills: req.body,
+      };
       const existingSkills = await Skills.findOneAndUpdate(
         { userId: req.user._id },
-        req.body,
+        body,
         { new: true }
       );
       if (existingSkills) {
@@ -92,9 +97,33 @@ module.exports = {
           'Skills updated'
         );
       } else {
-        req.body.userId = req.user._id;
-        let skills = await new Skills(req.body).save();
+        let skills = await new Skills(body).save();
         return Responder.respondWithSuccess(req, res, skills, 'Skills added');
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  },
+
+  async updateLinks(req, res) {
+    try {
+      let body = req.body;
+      body.userId = req.user._id;
+      const existingUser = await Links.findOneAndUpdate(
+        { userId: req.user._id },
+        body,
+        { new: true }
+      );
+      if (existingUser) {
+        return Responder.respondWithSuccess(
+          req,
+          res,
+          existingUser,
+          'Links updated'
+        );
+      } else {
+        let link = await new Links(body).save();
+        return Responder.respondWithSuccess(req, res, link, 'Links added');
       }
     } catch (e) {
       console.error(e);

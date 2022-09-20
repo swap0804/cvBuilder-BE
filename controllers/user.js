@@ -4,6 +4,8 @@ const { User, validate } = require('../models/user');
 const BasicDetails = require('../models/basicDetails');
 const WorkExperience = require('../models/workExperience');
 const projects = require('../models/projects');
+const skills = require('../models/skills');
+const links = require('../models/links');
 
 module.exports = {
   async getUsers(req, res) {
@@ -49,12 +51,11 @@ module.exports = {
     try {
       let data = {};
       const userId = req.user._id;
-      const basicDetails = await BasicDetails.findOne({ userId });
-      const experience = await WorkExperience.find({ userId });
-      const project = await projects.find({ userId });
-      data.basicDetails = basicDetails;
-      data.experience = experience;
-      data.project = project;
+      data.basicDetails = await BasicDetails.findOne({ userId });
+      data.experience = await WorkExperience.find({ userId });
+      data.project = await projects.find({ userId });
+      data.skill = await skills.findOne({ userId });
+      data.link = await links.findOne({ userId });
       return Responder.respondWithSuccess(
         req,
         res,

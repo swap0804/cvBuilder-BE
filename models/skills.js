@@ -5,8 +5,7 @@ let skillSchema = new Schema(
   {
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     skills: [
-      { name: { type: String, required: true } },
-      { pecentage: { type: String } },
+      { name: { type: String, required: true }, percentage: { type: Number } },
     ],
   },
   {
