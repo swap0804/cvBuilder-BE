@@ -80,7 +80,6 @@ module.exports = {
         { new: true }
       );
       let details;
-      console.log('ssss', body);
       if (existingDetails) details = existingDetails;
       else details = await new BasicDetails(body).save();
       return Responder.respondWithSuccess(
