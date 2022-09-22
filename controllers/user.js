@@ -92,4 +92,28 @@ module.exports = {
       console.error(e);
     }
   },
+
+  async uploadImage(req, res) {
+    try {
+      if (req.file) {
+        await BasicDetails.findOneAndUpdate(
+          { userId: req.user._id },
+          { imagePath: req.file.path }
+        );
+        return Responder.respondWithSuccess(
+          req,
+          res,
+          req.file.path,
+          'Picture Uploaded'
+        );
+      } else
+        return Responder.respondWithCustomError(
+          req,
+          res,
+          'Picture Not Uploaded'
+        );
+    } catch (e) {
+      console.error(e);
+    }
+  },
 };

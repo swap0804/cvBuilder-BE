@@ -13,6 +13,7 @@ let basicSchema = new Schema(
     city: { type: String },
     pincode: { type: Number },
     intro: { type: String },
+    imagePath: { type: String },
   },
   {
     timestamps: true,
