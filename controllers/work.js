@@ -3,6 +3,7 @@ const Experience = require('../models/workExperience');
 const Project = require('../models/projects');
 const Skills = require('../models/skills');
 const Links = require('../models/links');
+const Resume = require('../models/resume');
 
 module.exports = {
   async updateExperience(req, res) {
@@ -174,25 +175,23 @@ module.exports = {
     }
   },
 
-  async deleteSkill(req, res) {
+  async purchaseResume(req, res) {
     try {
-      const experience = await Experience.findOneAndDelete({
+      let body = req.body;
+      body.userId = req.user._id;
+      const existingResume = await Resume.findOne({
         userId: req.user._id,
-        _id,
+        layout,
       });
-      if (experience) {
+      if (!existingResume) {
+        const resume = await new Resume(body).save();
         return Responder.respondWithSuccess(
           req,
           res,
-          experience,
-          'Experience deleted'
+          resume,
+          'resume created successfully'
         );
-      } else
-        return Responder.respondWithCustomError(
-          req,
-          res,
-          'Experience not found'
-        );
+      }
     } catch (e) {
       console.error(e);
     }
