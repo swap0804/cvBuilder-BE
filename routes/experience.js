@@ -10,4 +10,7 @@ router.post('/update-projects', ExperienceController.updateProjects);
 router.post('/update-skills', ExperienceController.updateSkills);
 router.post('/update-links', ExperienceController.updateLinks);
 
+router.post('/delete-project', ExperienceController.deleteProject);
+router.post('/delete-exp', ExperienceController.deleteExperience);
+
 module.exports = router;

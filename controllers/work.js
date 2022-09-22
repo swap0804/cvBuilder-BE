@@ -129,4 +129,72 @@ module.exports = {
       console.error(e);
     }
   },
+
+  async deleteProject(req, res) {
+    try {
+      const project = await Project.findOneAndDelete({
+        userId: req.user._id,
+        _id: req.body._id,
+      });
+      if (project) {
+        return Responder.respondWithSuccess(
+          req,
+          res,
+          project,
+          'Project deleted'
+        );
+      } else
+        return Responder.respondWithCustomError(req, res, 'Project not found');
+    } catch (e) {
+      console.error(e);
+    }
+  },
+
+  async deleteExperience(req, res) {
+    try {
+      const experience = await Experience.findOneAndDelete({
+        userId: req.user._id,
+        _id: req.body._id,
+      });
+      if (experience) {
+        return Responder.respondWithSuccess(
+          req,
+          res,
+          experience,
+          'Experience deleted'
+        );
+      } else
+        return Responder.respondWithCustomError(
+          req,
+          res,
+          'Experience not found'
+        );
+    } catch (e) {
+      console.error(e);
+    }
+  },
+
+  async deleteSkill(req, res) {
+    try {
+      const experience = await Experience.findOneAndDelete({
+        userId: req.user._id,
+        _id,
+      });
+      if (experience) {
+        return Responder.respondWithSuccess(
+          req,
+          res,
+          experience,
+          'Experience deleted'
+        );
+      } else
+        return Responder.respondWithCustomError(
+          req,
+          res,
+          'Experience not found'
+        );
+    } catch (e) {
+      console.error(e);
+    }
+  },
 };
