@@ -22,6 +22,7 @@ router.post('/add', UserController.addUser);
 router.use(Auth);
 router.get('/get-userDetails', UserController.getUserDetails);
 router.post('/add-basicDetails', UserController.addBasicDetails);
+router.get('/get-resumes', UserController.getResumeDetails);
 router
   .use(upload.single('picture'))
   .post('/add-userPhoto', UserController.uploadImage);

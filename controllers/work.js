@@ -181,7 +181,7 @@ module.exports = {
       body.userId = req.user._id;
       const existingResume = await Resume.findOne({
         userId: req.user._id,
-        layout,
+        layout: req.body.layout,
       });
       if (!existingResume) {
         const resume = await new Resume(body).save();

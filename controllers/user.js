@@ -6,6 +6,7 @@ const WorkExperience = require('../models/workExperience');
 const projects = require('../models/projects');
 const skills = require('../models/skills');
 const links = require('../models/links');
+const resume = require('../models/resume');
 
 module.exports = {
   async getUsers(req, res) {
@@ -114,6 +115,15 @@ module.exports = {
         );
     } catch (e) {
       console.error(e);
+    }
+  },
+
+  async getResumeDetails(req, res) {
+    try {
+      const resumes = await resume.find({ userId: req.user._id });
+      return Responder.respondWithSuccess(req, res, resumes, 'Resumes fetched');
+    } catch (e) {
+      console.log(e);
     }
   },
 };
