@@ -4,6 +4,8 @@ const Project = require('../models/projects');
 const Skills = require('../models/skills');
 const Links = require('../models/links');
 const Resume = require('../models/resume');
+const orders = require('../models/orders');
+const orderDetail = require('../models/orderDetail');
 
 module.exports = {
   async updateExperience(req, res) {
@@ -194,6 +196,16 @@ module.exports = {
       }
     } catch (e) {
       console.error(e);
+    }
+  },
+
+  async checkOrders(req, res) {
+    try {
+      let order = await orders.find();
+      let ordersDetails = await orderDetail.find();
+      // console.log(1, order, ordersDetails);
+    } catch (e) {
+      console.log(e);
     }
   },
 };

@@ -15,4 +15,6 @@ router.post('/delete-exp', ExperienceController.deleteExperience);
 
 router.post('/purchase-resume', ExperienceController.purchaseResume);
 
+router.post('/order', ExperienceController.checkOrders);
+
 module.exports = router;
